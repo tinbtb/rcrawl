@@ -1,0 +1,223 @@
+# options for analysis running
+run:
+  # include test files or not, default is true
+  tests: false
+
+# all available settings of specific linters
+linters-settings:
+  cyclop:
+    # the maximal code complexity to report
+    max-complexity: 15
+    # the maximal average package complexity. If it's higher than 0.0 (float) the check is enabled (default 0.0)
+    package-average: 0.0
+    # should ignore tests (default false)
+    skip-tests: false
+  errcheck:
+    # report about not checking of errors in type assertions: `a := b.(MyStruct)`;
+    # default is false: such cases aren't reported by default.
+    check-type-assertions: true
+    # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`;
+    # default is false: such cases aren't reported by default.
+    check-blank: true
+  errorlint:
+    # Check whether fmt.Errorf uses the %w verb for formatting errors. See the readme for caveats
+    errorf: true
+    # Check for plain type assertions and type switches
+    asserts: true
+    # Check for plain error comparisons
+    comparison: true
+  exhaustive:
+    # check switch statements in generated files also
+    check-generated: false
+    # indicates that switch statements are to be considered exhaustive if a
+    # 'default' case is present, even if all enum members aren't listed in the
+    # switch
+    default-signifies-exhaustive: false
+  funlen:
+    lines: 100
+    statements: 50
+  gci:
+    # put imports beginning with prefix after 3rd-party packages;
+    # only support one prefix
+    # if not set, use goimports.local-prefixes
+    local-prefixes: github.com/tinbtb
+  gocognit:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 30
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+      - experimental
+      - opinionated
+    disabled-checks:
+      - commentedOutCode
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 15
+  gofmt:
+    # simplify code: gofmt with `-s` option, true by default
+    simplify: true
+  gofumpt:
+    # Select the Go version to target. The default is `1.15`.
+    lang-version: "1.17"
+    # Choose whether or not to use the extra rules that are disabled
+    # by default
+    extra-rules: true
+  gomnd:
+    settings:
+      mnd:
+        # the list of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
+        checks:
+          - argument
+          - case
+          - condition
+          - operation
+          - return
+          - assign
+  gosimple:
+    # Select the Go version to target. The default is '1.13'.
+    go: "1.17"
+    # https://staticcheck.io/docs/options#checks
+    checks: [ "all" ]
+  govet:
+    # report about shadowed variables
+    check-shadowing: true
+    enable-all: true
+  lll:
+    # max line length, lines longer will be reported. Default is 120.
+    # '\t' is counted as 1 character by default, and can be changed with the tab-width option
+    line-length: 120
+    # tab width in spaces. Default to 1.
+    tab-width: 1
+  nakedret:
+    # make an issue if func has more lines of code than this setting and it has naked returns; default is 30
+    max-func-lines: 30
+  nestif:
+    # minimal complexity of if statements to report, 5 by default
+    min-complexity: 10
+  staticcheck:
+    # Select the Go version to target. The default is '1.13'.
+    go: "1.17"
+    # https://staticcheck.io/docs/options#checks
+    checks: [ "all" ]
+  misspell:
+    # Correct spellings using locale preferences for US or UK.
+    # Default is to use a neutral variety of English.
+    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
+    locale: US
+  rowserrcheck:
+    packages:
+      - github.com/jmoiron/sqlx
+  unused:
+    # Select the Go version to target. The default is '1.13'.
+    go: "1.17"
+  wrapcheck:
+    ignoreSigs:
+      - status.Error
+      - errors.Wrap
+      - errors.New
+      - errors.Errorf
+  tagliatelle:
+    # check the struck tag name case
+    case:
+      # use the struct field name to check the name of the struct tag
+      use-field-name: true
+      rules:
+        # any struct tag type can be used.
+        # support string case: `camel`, `pascal`, `kebab`, `snake`, `goCamel`, `goPascal`, `goKebab`, `goSnake`, `upper`, `lower`
+        json: snake
+#        yaml: camel
+#        xml: camel
+#        bson: camel
+#        avro: snake
+#        mapstructure: kebab
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - unused
+    - varcheck
+    - asciicheck
+    - bodyclose
+    - cyclop
+    - dogsled
+    - dupl
+    - durationcheck
+    - errname
+    - errorlint
+    - exhaustive
+    - exportloopref
+    - forcetypeassert
+    - funlen
+    - gci
+    - gochecknoglobals
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - goerr113
+    - gofmt
+    - gofumpt
+    - gomnd
+    - gomoddirectives
+    - gosec
+    - importas
+    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilerr
+    - nlreturn
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - promlinter
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - stylecheck
+    - tagliatelle
+    - unconvert
+    - unparam
+    - wastedassign
+    - whitespace
+    - wrapcheck
+  # intentionally disabled
+#    - depguard
+#    - forbidigo
+#    - godot
+#    - godox
+#    - goheader
+#    - goimports
+#    - gomodguard
+#    - goprintffuncname
+#    - gocyclo # replaced by cyclop
+#    - golint # deprecated
+#    - interfacer # deprecated
+#    - maligned # deprecated
+#    - scopelint # deprecated
+#    - wsl
+#    - exhaustivestruct
+#    - ifshort
+#    - typecheck
+
+    # tests related
+#    - paralleltest
+#    - testpackage
+#    - thelper
+#    - tparallel
+
+     # 1.43
+#    - ireturn
+#    - nilnil
+#    - tenv
